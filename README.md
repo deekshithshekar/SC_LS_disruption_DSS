@@ -1,36 +1,127 @@
-Predicting Supply Chain Disruption in Life Science Manufacturing Industry
-Abstract
-This project aims to develop a decision support system that predicts supply chain disruptions in the life science manufacturing industry. By leveraging historical shipment data, the system identifies factors contributing to delivery delays and provides actionable insights to supply chain planners. A machine learning model is trained to classify shipments as likely delayed or on-time, and a user-friendly Streamlit dashboard is developed to visualize key patterns and estimate risk for future shipments.
-Introduction
-Supply chain disruptions in the life science sector can have significant impacts on public health and business operations. This project uses real-world pharmaceutical shipment data to analyze delay patterns, build predictive models, and create a dashboard that supports proactive decision-making.
-Data Description
-The dataset used contains over 10,000 shipment records from various pharmaceutical companies supplying products to different countries. Key columns include shipment dates, country, vendor, shipment mode, product group, quantities, costs, and more. The target variable is whether a shipment was delayed (delivered after the scheduled date).
-Methodology
-The project follows these steps:
-1. Data Cleaning: Handle missing values, convert dates, and clean numeric columns.
-2. Feature Engineering: Derive features like delivery delay days, lead times, and encode categorical variables.
-3. Exploratory Data Analysis (EDA): Visualize delay rates by country, shipment mode, vendor, and product group.
-4. Machine Learning Modeling: Train a Random Forest classifier to predict shipment delays.
-5. Streamlit Dashboard: Develop an interactive dashboard for EDA and shipment risk estimation.
-Data Cleaning
-Data cleaning involved parsing date columns, converting object columns with numeric data, and handling missing or invalid entries. Shipments with missing critical dates or extreme outliers were excluded from modeling.
-Feature Engineering
-Features engineered include:
-- Delivery delay in days (Delivered - Scheduled)
-- Lead time features (PO-to-Schedule, PO-to-Delivery)
-- Encoded categorical variables (country, mode, vendor, etc.)
-- Cleaned numeric fields (quantities, costs, weights)
-Exploratory Data Analysis (EDA)
-EDA revealed significant variation in delay rates by country, shipment mode, and vendor. Visualization of delay distributions and summary tables highlighted risk hotspots in the supply chain.
-Modeling
-A Random Forest classifier was trained to predict if a shipment would be delayed. Model features included engineered lead times, shipment characteristics, and encoded categorical variables. The model output is a probability of delay, which is mapped to Low/Medium/High risk levels for end users.
-Dashboard
-A Streamlit dashboard was built to make insights accessible and actionable. Key functionalities include:
-- Visualization of delay rates and risk hotspots
-- Interactive shipment risk estimation based on user input
-- Explanations for risk predictions based on historical patterns
-The dashboard is designed for business users and does not expose technical model metrics.
-Results and Insights
-The system provides clear visibility into which countries, shipment modes, and vendors have higher risk of delay. Users can proactively assess planned shipments and receive understandable risk levels (Low/Medium/High) with explanations. This supports better planning and mitigation of supply chain disruptions in the life science sector.
-Conclusion
-This project demonstrates the value of combining data-driven analysis, machine learning, and user-centric dashboards for supply chain risk management in the life science manufacturing industry. The approach can be extended to other sectors and incorporate more real-time data and advanced models for even greater impact.
+# Predicting Supply Chain Disruption in Life Science Manufacturing
+
+This project develops a **decision support system (DSS)** to predict and explain **supply chain disruptions** (delivery delays) in the **life science manufacturing industry**. Using historical pharmaceutical shipment data and a machine learning model, it estimates the risk of delay for new shipments and exposes insights via a **Streamlit dashboard**.
+
+The work was created as a **DSS Final Project**.
+
+---
+
+## Table of Contents
+
+- [Project Overview](#project-overview)  
+- [Data & Problem Description](#data--problem-description)  
+- [Methodology](#methodology)  
+- [Repository Structure](#repository-structure)  
+- [Modeling Approach](#modeling-approach)  
+- [Streamlit Dashboard](#streamlit-dashboard)  
+- [How to Run the Project](#how-to-run-the-project)  
+- [Results & Insights](#results--insights)  
+- [Future Work](#future-work)  
+- [License](#license)
+
+---
+
+## Project Overview
+
+Supply chain disruptions in the **life science sector** can have serious implications for both **public health** and **business performance**. Delayed shipments of pharmaceutical products can lead to stockouts, regulatory issues, and patient impact.
+
+This project:
+
+- Uses **real-world pharmaceutical shipment data**  
+- Analyzes **drivers of delivery delays**  
+- Trains a **classification model** to predict delay risk  
+- Provides a **user-friendly Streamlit app** for supply chain planners to:
+  - Explore historical patterns
+  - Estimate delay risk for future/planned shipments
+  - View explanations in intuitive risk categories (Low / Medium / High)
+
+---
+
+## Data & Problem Description
+
+The dataset contains **10,000+ shipment records** from various pharmaceutical companies delivering products to multiple countries.
+
+Typical columns (may vary depending on raw file):
+
+- Shipment & order information:  
+  - `po_date`, `scheduled_delivery_date`, `actual_delivery_date`  
+  - `shipment_mode` (e.g., air, sea, road)  
+  - `country` / `destination_country`  
+  - `vendor`, `carrier`, `incoterm`  
+- Product & cost information:  
+  - `product_group`, `material`  
+  - `quantity`, `weight`, `volume`, `unit_price`, `total_cost`  
+- Target variable:  
+  - **Delayed vs On-time** shipment (e.g., `delayed` = 1 if delivered after scheduled date, else 0)
+
+**Objective:**  
+Given shipment details **known at planning time**, predict whether a shipment is **likely to be delayed** and quantify its **risk level**.
+
+---
+
+## Methodology
+
+The project follows a standard **data science lifecycle**:
+
+1. **Data Cleaning**
+   - Parse date columns into proper datetime format  
+   - Convert numeric-like object columns (quantities, costs) to numeric types  
+   - Handle missing values and invalid records  
+   - Filter out extreme outliers and records missing critical dates
+
+2. **Feature Engineering**
+   - Delivery delay:
+     - `delay_days = actual_delivery_date - scheduled_delivery_date`
+   - Lead times:
+     - `po_to_schedule = scheduled_delivery_date - po_date`  
+     - `po_to_delivery = actual_delivery_date - po_date`
+   - Categorical encodings:
+     - One-hot or label encoding for `country`, `vendor`, `shipment_mode`, `product_group`, etc.
+   - Cleanup / scaling of numeric features (if needed)
+
+3. **Exploratory Data Analysis (EDA)**
+   - Delay rates by:
+     - Country / region  
+     - Shipment mode  
+     - Vendor / carrier  
+     - Product group
+   - Distribution of delay days  
+   - Identification of **“risk hotspots”**
+
+4. **Machine Learning Modeling**
+   - Train a **Random Forest classifier** to predict “Delayed vs On-time”  
+   - Use engineered lead-time and shipment features as inputs  
+   - Output: probability of delay for each shipment
+
+5. **Decision Support Interface (Streamlit)**
+   - An interactive dashboard to:
+     - Visualize historical delay patterns  
+     - Estimate risk for user-specified planned shipments  
+     - Map model probabilities to **Low / Medium / High** risk levels
+
+---
+
+## Repository Structure
+
+> Adjust filenames if they differ in your actual `my final project` folder.
+```text
+SC_LS_disruption_DSS/
+├─ my final project/
+│  ├─ data/
+│  │  ├─ raw/                # Original dataset(s)
+│  │  └─ processed/          # Cleaned / feature-engineered data
+│  ├─ notebooks/
+│  │  ├─ 01_eda.ipynb        # Exploratory data analysis
+│  │  ├─ 02_feature_eng.ipynb# Feature engineering experiments
+│  │  └─ 03_modeling.ipynb   # Model training & evaluation
+│  ├─ src/
+│  │  ├─ data_preparation.py # Data cleaning & feature engineering functions
+│  │  ├─ train_model.py      # Script to train & persist the Random Forest model
+│  │  └─ utils.py            # Helper utilities (metrics, plotting, etc.)
+│  ├─ app/
+│  │  └─ streamlit_app.py    # Main Streamlit dashboard
+│  ├─ models/
+│  │  └─ random_forest.pkl   # Saved trained model (and encoders/scalers)
+│  ├─ requirements.txt       # Python dependencies
+│  └─ README.md              # (Optional) Module-level readme
+└─ README.md                 # Root project readme (this file)
