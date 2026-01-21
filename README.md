@@ -1,4 +1,4 @@
-# Predicting Supply Chain Disruption in Life Science Manufacturing
+# Predicting Supply Chain Disruption in Life Science Manufacturing Industry
 
 This project develops a **decision support system (DSS)** to predict and explain **supply chain disruptions** (delivery delays) in the **life science manufacturing industry**. Using historical pharmaceutical shipment data and a machine learning model, it estimates the risk of delay for new shipments and exposes insights via a **Streamlit dashboard**.
 
